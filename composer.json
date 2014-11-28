@@ -1,5 +1,5 @@
 {
-	"name": "openbuildings/timestamped-migrations",
+	"name": "pridemon/timestamped-migrations",
 	"type": "kohana-module",
 	"description": "Migrations are a convenient way for you to alter your database in a structured and organized manner",
 	"keywords": ["kohana", "database", "migrations", "versioning", "timestamps", "sync"],
