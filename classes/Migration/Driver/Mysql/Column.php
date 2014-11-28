@@ -16,13 +16,13 @@ class Migration_Driver_Mysql_Column extends Migration_Driver_Column
 	 */
 	static protected $types = array
 	(
-		'primary_key' => array('type' => 'INT', 'null' => FALSE, 'auto' => TRUE, 'primary' => TRUE),
+		'primary_key' => array('type' => 'INT', 'null' => FALSE, 'auto' => TRUE, 'primary' => TRUE, 'unsigned' => TRUE),
 		'string' => array('type' => 'VARCHAR', 'limit' => 255),
 		'text' => array('type' => 'TEXT'),
 		'integer' => array('type' => 'INT'),
-		'float' => array('type' => 'FLOAT', 'limit' => 10, 'precision' => 2),
+		'float' => array('type' => 'FLOAT'), //, 'limit' => 10, 'precision' => 2),
 		'long' => array('type' => 'BIGINT'),
-		'decimal' => array('type' => 'DECIMAL', 'limit' => 10, 'precision' => 2),
+		'decimal' => array('type' => 'DECIMAL'), //, 'limit' => 10, 'precision' => 2),
 		'datetime' => array('type' => 'DATETIME'),
 		'timestamp' => array('type' => 'TIMESTAMP'),
 		'time' => array('type' => 'TIME'),
@@ -130,8 +130,9 @@ class Migration_Driver_Mysql_Column extends Migration_Driver_Column
 			$limit ? ($precision ? ( "({$limit}, {$precision})" ) : "({$limit})") : NULL,
 			$values ? ('('.join(', ', array_map(array($this->driver->pdo, 'quote'), $values)).')') : NULL,
 			$unsigned ? ("UNSIGNED") : NULL,
-			($default OR $default === 0 OR $default === '0') ? ("DEFAULT ".$this->driver->pdo->quote($default)) : NULL,
+			($default OR $default === 0 OR $default === '0') ? ("DEFAULT ".($default === 'CURRENT_TIMESTAMP' ? $default : $this->driver->pdo->quote($default))) : NULL,
 			$null !== NULL ? ($null ? "NULL" : "NOT NULL") : NULL,
+            $extra ? ($extra) : NULL,
 			$auto ? ("AUTO_INCREMENT") : NULL,
 			$comment ? ("COMMENT '{$comment}'") : NULL,
 			$after ? ("AFTER `{$after}`") : NULL,
