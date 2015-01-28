@@ -244,15 +244,15 @@ FOREIGN KEYS
 
 You can add or remove a foreign key using the following functions:
 
-``function add_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name, $on_update = 'NO ACTION', $on_delete = 'NO ACTION')``
-``function remove_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name)``
+	function add_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name, $on_update = 'NO ACTION', $on_delete = 'NO ACTION')
+	function remove_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name)
 
 Foreign key action: ``RESTRICT``, ``CASCADE``, ``SET NULL`` and ``NO ACTION`` allowed
 
 Example:
 
-``$this->add_foreign_key('customer', 'city_id', 'city', 'id', 'CASCADE', 'SET NULL');``
-``$this->remove_foreign_key('customer', 'city_id', 'city', 'id');``
+	$this->add_foreign_key('customer', 'city_id', 'city', 'id', 'CASCADE', 'SET NULL');
+	$this->remove_foreign_key('customer', 'city_id', 'city', 'id');
 
 ## Footnotes
 A lot of this text has been taken from http://guides.rubyonrails.org/migrations.html as I've tried to mimic their functionality and interface as much as I could.
