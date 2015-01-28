@@ -13,8 +13,10 @@ abstract class Migration_Driver
 
 	/**
 	 * Get the driver of a srtain type
-	 * @param type $type
-	 * @return type
+	 * @param string $database
+	 * @return mixed
+	 * @throws Kohana_Exception
+	 * @throws Migration_Exception
 	 */
 	static public function factory($database = 'default')
 	{
@@ -81,4 +83,6 @@ abstract class Migration_Driver
 
 	abstract public function add_index($table_name, $index_name, $columns, $index_type = 'normal');
 	abstract public function remove_index($table_name, $index_name);
+	abstract public function add_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name, $on_update = 'NO ACTION', $on_delete = 'NO ACTION');
+	abstract public function remove_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name);
 }

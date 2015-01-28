@@ -125,6 +125,7 @@ You have a bunch of helper methods that will simplify your life writing migratio
 
 * create_table
 * rename_table
+* change_table
 * drop_table
 * add_column
 * remove_column
@@ -132,9 +133,10 @@ You have a bunch of helper methods that will simplify your life writing migratio
 * rename_column
 * add_index
 * remove_index
-* change_table
+* add_foreign_key
+* remove_foreign_key
 
-If you need to perform tasks specific to your database (for example create a foreign key constraint) then the execute method allows you to execute arbitrary SQL. A migration is just a regular PHP class so you're not limited to these functions. For example after adding a column you could write code to set the value of that column for existing records (if necessary using your models).
+If you need to perform tasks specific to your database then the execute method allows you to execute arbitrary SQL. A migration is just a regular PHP class so you're not limited to these functions. For example after adding a column you could write code to set the value of that column for existing records (if necessary using your models).
 
 Here's a quick example of all of this at work
 
@@ -236,6 +238,21 @@ PRIMARY KEYS
 ------------
 
 Primary keys have special handlings. When you create a table, it will create a composite primary key with all your fields with 'primary' => TRUE, and when you add a column with primary_key, it will drop the current primary key and assign the new column as primary key
+
+FOREIGN KEYS
+------------
+
+You can add or remove a foreign key using the following functions:
+
+	function add_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name, $on_update = 'NO ACTION', $on_delete = 'NO ACTION')
+	function remove_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name)
+
+Foreign key action: ``RESTRICT``, ``CASCADE``, ``SET NULL`` and ``NO ACTION`` allowed
+
+Example:
+
+	$this->add_foreign_key('customer', 'city_id', 'city', 'id', 'CASCADE', 'SET NULL');
+	$this->remove_foreign_key('customer', 'city_id', 'city', 'id');
 
 ## Footnotes
 A lot of this text has been taken from http://guides.rubyonrails.org/migrations.html as I've tried to mimic their functionality and interface as much as I could.
