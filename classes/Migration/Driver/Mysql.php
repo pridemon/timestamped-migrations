@@ -209,21 +209,20 @@ class Migration_Driver_Mysql extends Migration_Driver
 		return $this;
 	}
 
-	public function add_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name, $on_update = 'NO ACTION', $on_delete = 'NO ACTION')
+	public function add_foreign_key($table_name, $index_name, $column_name, $referenced_table_name, $referenced_column_name, $on_update = 'NO ACTION', $on_delete = 'NO ACTION')
 	{
 		$on_update = strtoupper($on_update);
 		$on_delete = strtoupper($on_delete);
 		if (!in_array($on_update,$this->fk_options) OR !in_array($on_delete,$this->fk_options))
 			throw new Migration_Exception("Incorrect action type: RESTRICT, CASCADE, SET NULL and NO ACTION allowed");
-		$fk = 'fk_'.$table_name.'_'.$column_name.'_'.$referenced_table_name.'_'.$referenced_column_name;
-		$this->execute("ALTER TABLE `$table_name` ADD CONSTRAINT `$fk` FOREIGN KEY (`$column_name`) REFERENCES `$referenced_table_name` (`$referenced_column_name`) ON DELETE $on_update ON UPDATE $on_delete");
+
+		$this->execute("ALTER TABLE `$table_name` ADD CONSTRAINT `$index_name` FOREIGN KEY (`$column_name`) REFERENCES `$referenced_table_name` (`$referenced_column_name`) ON DELETE $on_update ON UPDATE $on_delete");
 		return $this;
 	}
 
-	public function remove_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name)
+	public function remove_foreign_key($table_name, $index_name)
 	{
-		$fk = 'fk_'.$table_name.'_'.$column_name.'_'.$referenced_table_name.'_'.$referenced_column_name;
-		$this->execute("ALTER TABLE `$table_name` DROP FOREIGN KEY `$fk`");
+		$this->execute("ALTER TABLE `$table_name` DROP FOREIGN KEY `$index_name`");
 		return $this;
 	}
 }

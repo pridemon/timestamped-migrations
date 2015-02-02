@@ -285,6 +285,7 @@ abstract class Migration
 	 * Add foreign key
 	 *
 	 * @param string Name of the table
+	 * @param string Name of the index
 	 * @param string Name of the column
 	 * @param string Name of referenced table
 	 * @param string Name of referenced column
@@ -292,24 +293,22 @@ abstract class Migration
 	 * @param string Action type on delete
 	 * @return bool
 	 */
-	public function add_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name, $on_update = 'NO ACTION', $on_delete = 'NO ACTION')
+	public function add_foreign_key($table_name, $index_name, $column_name, $referenced_table_name, $referenced_column_name, $on_update = 'NO ACTION', $on_delete = 'NO ACTION')
 	{
 		$args = func_get_args();
-		return $this->run_driver("add_foreign_key( $table_name, $column_name, $referenced_table_name,  $referenced_column_name, $on_update, $on_delete)", __FUNCTION__, $args);
+		return $this->run_driver("add_foreign_key( $table_name, $index_name, $column_name, $referenced_table_name,  $referenced_column_name, $on_update, $on_delete)", __FUNCTION__, $args);
 	}
 
 	/**
 	 * Remove foreign key
 	 *
 	 * @param string Name of the table
-	 * @param string Name of the column
-	 * @param string Name of referenced table
-	 * @param string Name of referenced column
+	 * @param string Name of the index
 	 * @return bool
 	 */
-	public function remove_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name)
+	public function remove_foreign_key($table_name, $index_name)
 	{
 		$args = func_get_args();
-		return $this->run_driver("remove_foreign_key( $table_name, $column_name, $referenced_table_name, $referenced_column_name )", __FUNCTION__, $args);
+		return $this->run_driver("remove_foreign_key( $table_name, $index_name )", __FUNCTION__, $args);
 	}
 }
