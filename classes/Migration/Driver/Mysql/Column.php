@@ -137,6 +137,8 @@ class Migration_Driver_Mysql_Column extends Migration_Driver_Column
 			$comment ? ("COMMENT '{$comment}'") : NULL,
 			$after ? ("AFTER `{$after}`") : NULL,
 			$first ? ("FIRST") : NULL,
+			$charset ? ("CHARACTER SET {$charset}") : NULL,
+			$collation ? ("COLLATE $collation") : NULL,
 		)));
 	}
 }
