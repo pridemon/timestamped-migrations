@@ -293,10 +293,10 @@ abstract class Migration
 	 * @param string Action type on delete
 	 * @return bool
 	 */
-	public function add_foreign_key($table_name, $index_name, $column_name, $referenced_table_name, $referenced_column_name, $on_update = 'NO ACTION', $on_delete = 'NO ACTION')
+	public function add_foreign_key($table_name, $index_name, $column_name, $referenced_table_name, $referenced_column_name, $on_delete = 'NO ACTION', $on_update = 'NO ACTION')
 	{
 		$args = func_get_args();
-		return $this->run_driver("add_foreign_key( $table_name, $index_name, $column_name, $referenced_table_name,  $referenced_column_name, $on_update, $on_delete)", __FUNCTION__, $args);
+		return $this->run_driver("add_foreign_key( $table_name, $index_name, $column_name, $referenced_table_name,  $referenced_column_name, $on_delete, $on_update)", __FUNCTION__, $args);
 	}
 
 	/**
