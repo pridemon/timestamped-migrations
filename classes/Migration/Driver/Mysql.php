@@ -189,9 +189,9 @@ class Migration_Driver_Mysql extends Migration_Driver
 		}
 		$columns = (array) $columns;
 
-		foreach ($columns as $i => &$column)
+		foreach ($columns as $key => $column)
 		{
-			$column = "`$column`";
+            $columns[$key] = "`$column`";
 		}
 
 		$sql = join(' ', array(
